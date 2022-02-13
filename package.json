@@ -1,0 +1,28 @@
+{
+  "name": "office-e5",
+  "description": "参考：https://zhuanlan.zhihu.com/p/423382796",
+  "version": "0.1.0",
+  "main": "app.js",
+  "devDependencies": {
+    "eslint": "^8.9.0",
+    "prettier": "^2.5.1"
+  },
+  "dependencies": {
+    "axios": "^0.25.0",
+    "dotenv": "^16.0.0",
+    "qs": "^6.10.3"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whosydd/office-e5.git"
+  },
+  "author": "GY <dev.youngkwok718@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/whosydd/office-e5/issues"
+  },
+  "homepage": "https://github.com/whosydd/office-e5#readme"
+}
