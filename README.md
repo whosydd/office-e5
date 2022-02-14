@@ -59,7 +59,7 @@
 - `DRAFT_MAIL_TITLE`：草稿：标题
 - `DRAFT_MAIL_ADDRESS`：草稿：收件人邮箱
 - `SEND_MAIL_TITLE`：发送：标题
-- `SEND_MAIL_ADDRESS`发送：收件人邮箱
+- `SEND_MAIL_ADDRESS`发送：收件人邮箱(为了防止我的邮箱邮件过多，请在`secret`中配置你自己的邮箱)
 
 ## REST测试：
 
