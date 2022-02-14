@@ -1,0 +1,39 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: default
+
+on:
+  schedule:
+    - cron: '00 0-23/2 * * *'
+    # 每两小时执行一次
+
+  workflow_dispatch: # 手动执行workflow
+
+env: 
+  USER_ID: ${{ secrets.USER_ID }}
+
+  TENANT: ${{ secrets.TENANT }}
+
+  CLIENT_ID: ${{secrets.CLIENT_ID}}
+
+  CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
+
+  DRAFT_MAIL_TITLE: 'create draft'
+  DRAFT_MAIL_ADDRESS: 'dev.youngkwok718@gmail.com'
+
+  SEND_MAIL_TITLE: 'hey, there!'
+  SEND_MAIL_ADDRESS: 'dev.youngkwok718@gmail.com'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
+      - run: yarn
+      - run: yarn start
