@@ -34,7 +34,7 @@ const getToken = () => {
 }
 
 // 获取邮件列表
-const getMailList = (token, folder) => {
+const getMailList = (token, count, folder) => {
   // console.log('get mail list', token)
   const req = axios.create({
     baseURL,
@@ -47,11 +47,17 @@ const getMailList = (token, folder) => {
     let res
     if (!folder) {
       res = req.get('/messages', {
-        $select: 'sender,subject',
+        params: {
+          $select: 'subject,bodyPreview,toRecipients',
+          $top: count,
+        },
       })
     } else {
       res = req.get(`/mailFolders/${folder}/messages`, {
-        $select: 'sender,subject',
+        params: {
+          $top: count,
+          $select: 'id',
+        },
       })
     }
     res.then(res => resolve(res.data.value)).catch(err => resolve(err.message))
@@ -115,7 +121,7 @@ const mvMail = (token, mail_id) => {
   })
 }
 
-// 删除邮件
+// 删除 已删除文件夹 中的邮件
 const rmMail = (token, mail_id) => {
   const req = axios.create({
     baseURL,
@@ -127,9 +133,7 @@ const rmMail = (token, mail_id) => {
   })
   return new Promise(resolve => {
     req
-      .delete(`/messages/${mail_id}`, {
-        destinationId: 'deleteditems',
-      })
+      .delete(`/mailFolders/deleteditems/messages/${mail_id}`)
       .then(res => resolve(res.status))
       .catch(err => resolve(err.message))
   })
