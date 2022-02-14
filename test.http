@@ -1,0 +1,89 @@
+# API测试
+@user_id={{$dotenv USER_ID}}
+@tenant={{$dotenv TENANT}}
+@client_id={{$dotenv CLIENT_ID}}
+@client_secret={{$dotenv CLIENT_SECRET}}
+
+
+@token=eyJ0eXAiOiJKV1QiLCJub25jZSI6IkV5YXhDc1c5ckZQYWx0SG5QNERmTlJJamNhcnR1Y0xDQmN1dUxZSUx5SVkiLCJhbGciOiJSUzI1NiIsIng1dCI6Ik1yNS1BVWliZkJpaTdOZDFqQmViYXhib1hXMCIsImtpZCI6Ik1yNS1BVWliZkJpaTdOZDFqQmViYXhib1hXMCJ9.eyJhdWQiOiJfdafdBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9kZmFhMzMzMC0zZWVmLTRiZjUtYjEyNS1lMDNmNjE4ZjczYzIvIiwiaWF0IjoxNjQ0ODI5ODQ3LCJuYmYiOjE2NDQ4Mjk4NDcsImV4cCI6MTY0NDgzMzc0NywiYWlvIjoiRTJaZ1lIQlhqZWk3VktteHhIem43aElqTWRZTEFBPT0iLCJhcHBfZGlzcGxheW5hbWUiOiJvZmZpY2UtZTUtZ2l0aHViIiwiYXBwaWQiOiIwYmQwYjdlOS0zMDYwLTQ0NWQtODI4OS01MzViZjI4OWU0NWUiLCJhcHBpZGFjciI6IjEiLCJpZHAiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9kZmFhMzMzMC0zZWVmLTRiZjUtYjEyNS1lMDNmNjE4ZjczYzIvIiwfdafafdaiJhcHAiLCJvaWQiOiJlZWQwM2I2Yy1iY2E3LTQ1YWItYTZkOS1iNDc4MTI1ZmZlNzUiLCJyaCI6IjAuQVhBQU1ET3EzLTgtOVV1eEplQV9ZWTl6d2dNQUFBQUFBQUFBd0FBQUFBQUFBQUJ3QUFBLiIsInJvbGVzIjpbIk1haWwuUmVhZFdyaXRlIiwiTWFpbC5SZWFkQmFzaWMuQWxsIiwiTWFpbC5SZWFkIiwiTWFpbC5TZW5kIiwiTWFpbC5SZWFkQmFzaWMiXSwic3ViIjoiZWVkMDNiNmMtYmNhNy00NWFiLWE2ZDktYjQ3ODEyNWZmZTc1IiwidGVuYW50X3JlZ2lvbl9zY29wZSI6IkFTIiwidGlkIjoiZGZhYTMzMzAtM2VlZi00YmY1LWIxMjUtZTAzZjYxOGY3M2MyIiwidXRpIjoidy1CQmNWeUtxa1dlT2hVU0ljV2pBQSIsInZlciI6IjEuMCIsIndpZHMiOlsiMDk5N2ExZDAtMGQxZC00YWNiLWI0MDgtZDVjYTczMTIxZTkwIl0sInhtc190Y2R0IjoxNjI1NzM4OTE0fQ.iddsB1A_4MSI-4j0qGPNKMCvCfhtmHtxzeBrJ47nCw9uQYO7kyRDfk6jaCTJVNVGrcBfYSxcF5x7zSbNEfbW5xzphtWbW9xOAdwtPJhHuArEoegtxjqW4GMrdu9giuv5j1KpP43rbhS0xre3eNCFePIGcZuPQ7Q_ih4PxxSNXRCjfRdFTlu-pMeYbkTWf3Gip_CrN5ZS5EdOhHvrgnDBwctuJmWuxaZCI99zARAJNIbwWIgiJ4OIi-ciaom_RyfDeYf0SbvMg3KwyT5tX79i68rTKGd9fGNUlHMSyJAiyjNhjNRliUriwItzZ0DCSGetSh5EbCr_ji-8obXxIOxUyw
+
+### 获取token
+POST https://login.microsoftonline.com/{{tenant}}/oauth2/v2.0/token HTTP/1.1
+Host: login.microsoftonline.com
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{client_id}}
+&scope=https://graph.microsoft.com/.default
+&client_secret={{client_secret}}
+&grant_type=client_credentials
+
+### 获取邮件列表
+GET https://graph.microsoft.com/v1.0/users/{{user_id}}/messages
+Authorization: Bearer {{token}}
+
+# $select筛选需要的字段
+$select=sender,subject 
+
+### 获取文件内邮件列表
+GET https://graph.microsoft.com/v1.0/users/{{user_id}}/mailFolders/drafts/messages?$select=sender,subject&$top=5
+Authorization: Bearer {{token}}
+
+### 创建邮件草稿
+POST https://graph.microsoft.com/v1.0/users/{{user_id}}/messages
+Authorization: Bearer {{token}}
+Content-Length: 0
+Content-Type: application/json
+
+{
+    "subject":"just test",
+    "importance":"Low",
+    "body":{
+        "contentType":"HTML",
+        "content":"<h1>hello world!</h1>"
+    },
+    "toRecipients":[
+        {
+            "emailAddress":{
+                "address":"dev.youngkwok718@gmail.com"
+            }
+        }
+    ]
+}
+
+### 发送邮件
+POST https://graph.microsoft.com/v1.0/users/{{user_id}}/sendMail
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "message": {
+    "subject": "hello",
+    "body": {
+      "contentType": "html",
+      "content": "<h1>hello world!</h1>"
+    },
+    "toRecipients": [
+      {
+        "emailAddress": {
+          "address": "dev.youngkwok718@gmail.com"
+        }
+      }
+    ],
+  },
+  "saveToSentItems": "false"
+}
+
+### 删除邮件
+@id=AAMkAGQyMTM4MDAxLWFiYTQtNGQ4My1hZGViLTlhNWVjM2JjYmM4YQBGAAAAAADFL_4qxgNoQY1C4OmSKuiCBwBmGiAxKn4dTZLqqiRGs1BKAAAAAAEKAABmGiAxKn4dTZLqqiRGs1BKAACPh8L_AAA=
+
+DELETE https://graph.microsoft.com/v1.0/users/{{user_id}}/mailFolders/deleteditems/messages/{{id}}
+Authorization: Bearer {{token}}
+
+### 移动到垃圾箱
+POST https://graph.microsoft.com/v1.0/users/{{user_id}}/messages/{{id}}/move
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "destinationId": "deleteditems"
+}
