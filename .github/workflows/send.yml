@@ -20,7 +20,7 @@ env:
   CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
 
   SEND_MAIL_TITLE: 'hey, there!'
-  SEND_MAIL_ADDRESS: 'dev.youngkwok718@gmail.com'
+  SEND_MAIL_ADDRESS: ${{secrets.SEND_MAIL_ADDRESS}}
 
 jobs:
   build:
