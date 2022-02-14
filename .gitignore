@@ -1,6 +1,5 @@
 node_modules/
-.vscode/
+test/
 
 .env
 yarn.lock
-test.http

@@ -1,6 +1,6 @@
 {
   "name": "office-e5",
-  "description": "参考：https://zhuanlan.zhihu.com/p/423382796",
+  "description": "office e5 订阅",
   "version": "0.1.0",
   "main": "app.js",
   "devDependencies": {
@@ -13,7 +13,8 @@
     "qs": "^6.10.3"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "send": "node app-send.js"
   },
   "repository": {
     "type": "git",
