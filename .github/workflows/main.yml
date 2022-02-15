@@ -1,11 +1,11 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: default
+name: main
 
 on:
   schedule:
-    - cron: '00 0-23/2 */1 */1 *'
+    - cron: '00 0-23/2 * * *'
     # 每两小时执行一次
 
   workflow_dispatch: # 手动执行workflow
@@ -20,7 +20,7 @@ env:
   CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
 
   DRAFT_MAIL_TITLE: 'create draft'
-  DRAFT_MAIL_ADDRESS: 'dev.youngkwok718@gmail.com'
+  DRAFT_MAIL_ADDRESS: ${{secrets.SEND_MAIL_ADDRESS}}
 
 jobs:
   build:
