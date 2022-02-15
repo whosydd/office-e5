@@ -5,7 +5,7 @@ name: main
 
 on:
   schedule:
-    - cron: '00 0-23/2 * * *'
+    - cron: '00 */2 * * *'
     # 每两小时执行一次
 
   workflow_dispatch: # 手动执行workflow
