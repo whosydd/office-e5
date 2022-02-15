@@ -7,27 +7,28 @@
 
 ## 前提：
 
-加入 Microsoft 365 开发人员计划：[戳这里](https://developer.microsoft.com/zh-cn/microsoft-365/dev-program)
+### 加入 Microsoft 365 开发人员计划：[戳这里](https://developer.microsoft.com/zh-cn/microsoft-365/dev-program)
 
-## Microsoft Azure 相关配置 [戳这里](./docs/microsoft-azure-config.md)
+## 配置：
 
-## 环境变量：
+### Microsoft Azure 相关配置 [戳这里](./docs/microsoft-azure-config.md)
 
-### 必须：建议将其添加到 github repo 的`secret`中
+### 环境变量：
 
-![Screenshot of Actions secrets](https://raw.githubusercontent.com/whosydd/images-in-one/main/images/202202142049045.jpg)
+#### 将以下环境变量添加到 repo 的`secret`中
 
 - `USER_ID`：用户 ID（概述里查看）
 - `TENANT`：目录(租户) ID
 - `CLIENT_ID`：应用程序(客户端) ID
 - `CLIENT_SECRET`：客户端密码
+- `SEND_MAIL_ADDRESS` 收件人邮箱（执行脚本2时会向该邮箱发送邮件）
 
-### 邮件：可以直接在 github actions 的`env`中配置
+![Screenshot of Actions secrets](https://raw.githubusercontent.com/whosydd/images-in-one/main/images/202202142049045.jpg)
+
+#### 标题可以直接在 actions 的`env`中配置
 
 - `DRAFT_MAIL_TITLE`：草稿：标题
-- `DRAFT_MAIL_ADDRESS`：草稿：收件人邮箱
 - `SEND_MAIL_TITLE`：发送：标题
-- `SEND_MAIL_ADDRESS`发送：收件人邮箱(为了防止我的邮箱邮件过多，请在`secret`中配置你自己的邮箱)
 
 ## REST 测试：
 
@@ -40,7 +41,7 @@
 ### 脚本 1：
 
 ```sh
-npm run start
+yarn start
 ```
 
 #### 调用接口：
@@ -54,7 +55,7 @@ npm run start
 ### 脚本 2：
 
 ```sh
-npm run send
+yarn run send
 ```
 
 #### 调用接口：
