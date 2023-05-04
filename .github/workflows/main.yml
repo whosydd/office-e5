@@ -5,8 +5,8 @@ name: main
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
-    # 每30分钟执行一次
+    - cron: '*/10 * * * *'
+    # 每10分钟执行一次
 
   workflow_dispatch: # 手动执行workflow
 
