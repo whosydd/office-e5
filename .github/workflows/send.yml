@@ -5,8 +5,8 @@ name: send
 
 on:
   schedule:
-    - cron: '00 */1 * * *'
-    # 每小时执行一次
+    - cron: '*/30 * * * *'
+    # 每30分钟执行一次
 
   workflow_dispatch: # 手动执行workflow
 
