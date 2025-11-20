@@ -1,0 +1,39 @@
+
+name: Auto Update
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'  # At 00:00 on day-of-month 1
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update-timestamp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Write current time to auto_update.txt and push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo "$TIMESTAMP" >> auto_update.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git status --porcelain | grep -q .; then
+            git add auto_update.txt
+            git commit -m "chore(auto-update): add timestamp $TIMESTAMP"
+            BRANCH=${GITHUB_REF#refs/heads/}
+            git push origin "HEAD:$BRANCH"
+          else
+            echo "No changes to commit"
+          fi
+
