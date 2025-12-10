@@ -1,4 +1,4 @@
-# office e5
+# office-e5
 
 ## 参考：
 
@@ -73,8 +73,3 @@ yarn run send
 ## PS:
 
 [戳这里查看官方 SDK](https://docs.microsoft.com/zh-cn/graph/sdks/sdk-installation?view=graph-rest-1.0)
-
-- 由于对`Microsoft Graph JavaScript SDK`还不熟悉，所以此项目目前还只是简单的使用`axios`发送请求，目前正在学习`golang`，之后可能会使用 GO 语言重构代码，先立个 flag 吧~
-
-- 由于本项目比较折腾，所以主要目的还是为了学习~
-- 我写的代码比较屎，欢迎 pr~
